@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6037969610487677206}
   - component: {fileID: 5770347672490566443}
+  - component: {fileID: 5316456525455761381}
   m_Layer: 0
   m_Name: TargetSet1Red
   m_TagString: Untagged
@@ -57,6 +58,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5316456525455761381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585603970350259144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f81eaf322018c4cbc3a9bdf3f72b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 1
 --- !u!1001 &1729142569421401458
 PrefabInstance:
   m_ObjectHideFlags: 0

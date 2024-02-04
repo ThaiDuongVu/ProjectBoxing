@@ -133,13 +133,15 @@ public class Glove : MonoBehaviour
         if (other.CompareTag("Target"))
         {
             var target = other.GetComponent<Target>();
+            // Check if glove/target match
             if (target.controllerType != controllerType) return;
+            // Check if fist is closed
             if (!IsClosed) return;
-
-            Debug.Log(_currentVelocity.magnitude);
+            // Check speed of glove
+            if (_currentVelocity.magnitude < 0.25f) return;
 
             target.Shatter(_currentVelocity.normalized, other.ClosestPoint(transform.position));
-            Destroy(target.gameObject);
+            Destroy(target.transform.parent.gameObject);
             Vibrate(0.25f, 0.25f);
         }
     }
