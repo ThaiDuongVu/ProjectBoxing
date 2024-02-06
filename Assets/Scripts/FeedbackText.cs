@@ -28,4 +28,9 @@ public class FeedbackText : MonoBehaviour
     {
         _text.color = color;
     }
+
+    public void SetSize(float size)
+    {
+        _text.fontSize = size;
+    }
 }

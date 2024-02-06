@@ -9,9 +9,6 @@ public class Target : MonoBehaviour
     [SerializeField] private Transform rig;
     [SerializeField] private ParticleSystem explosionPrefab;
 
-    [SerializeField] private FeedbackText feedbackTextPrefab;
-    [SerializeField] private Color textColor;
-
     private TargetPiece[] _pieces;
     private const float ShatterForce = 4f;
 
@@ -22,16 +19,9 @@ public class Target : MonoBehaviour
         _pieces = rig.GetComponentsInChildren<TargetPiece>();
     }
 
-    // private IEnumerator Start()
-    // {
-    //     yield return new WaitForSeconds(5f);
-    //     Shatter(Vector3.forward, transform.position);
-    //     Destroy(transform.parent.gameObject);
-    // }
-
     #endregion
 
-    public void Shatter(Vector3 direction, Vector3 impactPoint)
+    public void Shatter(Vector3 direction, Vector3 impactPoint, float force)
     {
         foreach (var piece in _pieces)
         {
@@ -41,13 +31,11 @@ public class Target : MonoBehaviour
             piece.transform.SetParent(null, true);
             piece.SetKinematic(false);
             piece.SetColliderEnabled(true);
-            piece.AddForce(shatterDirection, ShatterForce);
-            piece.AddTorque(shatterDirection, ShatterForce);
-            piece.SelfDestruct(1.5f);
+            piece.AddForce(shatterDirection, force);
+            piece.AddTorque(shatterDirection, force);
+            piece.SelfDestruct(3f);
         }
 
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        var feedbackText = Instantiate(feedbackTextPrefab, transform.position, Quaternion.identity);
-        feedbackText.SetColor(textColor);
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);   
     }
 }

@@ -6,6 +6,9 @@ public class Glove : MonoBehaviour
 {
     public ControllerType controllerType;
 
+    [SerializeField] private FeedbackText feedbackTextPrefab;
+    [SerializeField] private Color textColor;
+
     private Animator _animator;
     private static readonly int CloseAnimationBool = Animator.StringToHash("isClosed");
     public bool IsClosed { get; private set; }
@@ -16,6 +19,7 @@ public class Glove : MonoBehaviour
     private Vector3 _lastPosition;
     private Vector3 _currentVelocity;
     private const float VelocityScale = 10f;
+    private const float MinPunchVelocity = 0.2f;
 
     private XRBaseController _controller;
     private XRInputManager _inputManager;
@@ -133,16 +137,23 @@ public class Glove : MonoBehaviour
         if (other.CompareTag("Target"))
         {
             var target = other.GetComponent<Target>();
+            var contactPoint = other.ClosestPoint(transform.position);
+            var velocityMagnitude = _currentVelocity.magnitude;
+
             // Check if glove/target match
             if (target.controllerType != controllerType) return;
             // Check if fist is closed
             if (!IsClosed) return;
             // Check speed of glove
-            if (_currentVelocity.magnitude < 0.25f) return;
+            if (velocityMagnitude < MinPunchVelocity) return;
 
-            target.Shatter(_currentVelocity.normalized, other.ClosestPoint(transform.position));
+            target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 5f);
             Destroy(target.transform.parent.gameObject);
-            Vibrate(0.25f, 0.25f);
+            Vibrate(velocityMagnitude, velocityMagnitude);
+
+            var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
+            feedbackText.SetColor(textColor);
+            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity);
         }
     }
 }

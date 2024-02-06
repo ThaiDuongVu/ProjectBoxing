@@ -10,7 +10,7 @@ public class TargetSet : MonoBehaviour
     {
         Scroll();
 
-        if (transform.position.z <= -2f) Destroy(gameObject);
+        if (transform.position.z <= -2.5f) Destroy(gameObject);
     }
 
     #endregion
