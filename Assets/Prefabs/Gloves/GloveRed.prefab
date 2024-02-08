@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 1717180930753722272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.078125, y: 0.078125, z: 0.078125}
+  m_LocalPosition: {x: -0.0125, y: 0, z: -0.0875}
+  m_LocalScale: {x: 0.0875, y: 0.0875, z: 0.0875}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8051802385714450324}
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerType: 0
+  explosionPrefab: {fileID: 642786913745469833, guid: f78dc489201560c4c885da8f3439c288, type: 3}
   feedbackTextPrefab: {fileID: 2309825481399445866, guid: 8322da373447d954faf3a90705a69351, type: 3}
   textColor: {r: 0.93333334, g: 0.32156864, b: 0.3254902, a: 1}
 --- !u!1 &2521811022079536459

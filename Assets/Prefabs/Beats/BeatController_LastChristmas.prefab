@@ -461,6 +461,10 @@ PrefabInstance:
       value: 55.914
       objectReference: {fileID: 0}
     - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[0].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: beats.Array.data[100].time
       value: 56.494
       objectReference: {fileID: 0}
@@ -1261,6 +1265,10 @@ PrefabInstance:
       value: 168.205
       objectReference: {fileID: 0}
     - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[2].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: beats.Array.data[300].time
       value: 168.786
       objectReference: {fileID: 0}
@@ -1932,9 +1940,25 @@ PrefabInstance:
       propertyPath: beats.Array.data[467].time
       value: 262.571
       objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[4].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[6].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[8].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[10].action
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4522996261881248188, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: m_Name
-      value: BeatController_LastChristmas Variant
+      value: BeatController_LastChristmas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

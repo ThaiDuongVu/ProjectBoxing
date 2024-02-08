@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class BeatController : MonoBehaviour
 {
+    #region Singleton
+
+    private static BeatController _beatControllerInstance;
+
+    public static BeatController Instance
+    {
+        get
+        {
+            if (_beatControllerInstance == null) _beatControllerInstance = FindFirstObjectByType<BeatController>();
+            return _beatControllerInstance;
+        }
+    }
+
+    #endregion
+
+    [Header("Targets")]
+    [SerializeField] private Interactable[] interactablePrefabs;
+
+    [Header("Beats")]
     [SerializeField] private Beat[] beats;
 
     private float _timer;
@@ -21,7 +40,8 @@ public class BeatController : MonoBehaviour
 
     private void Start()
     {
-
+        _song.Stop();
+        // StartCoroutine(StartBeat());
     }
 
     private void Update()
@@ -34,15 +54,23 @@ public class BeatController : MonoBehaviour
 
         if (_timer >= beats[_currentIndex].time)
         {
-            // TODO: Execute action
+            // Execute action
+            var action = beats[_currentIndex].action;
+            if (action != 0)
+            {
+                Instantiate(interactablePrefabs[action - 1], new Vector3(0f, 1.75f, 4.5f), Quaternion.identity);
+            }
+
             _currentIndex++;
         }
     }
 
     #endregion
 
-    private IEnumerator StartBeat()
+    public IEnumerator StartBeat()
     {
+        if (_isBeatStarted) yield break;
+
         _isBeatStarted = true;
         yield return new WaitForSeconds(5f);
         _song.Play();

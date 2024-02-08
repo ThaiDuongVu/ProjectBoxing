@@ -6,6 +6,10 @@ public class Glove : MonoBehaviour
 {
     public ControllerType controllerType;
 
+    [Header("Particle References")]
+    [SerializeField] private ParticleSystem explosionPrefab;
+
+    [Header("Text References")]
     [SerializeField] private FeedbackText feedbackTextPrefab;
     [SerializeField] private Color textColor;
 
@@ -33,6 +37,7 @@ public class Glove : MonoBehaviour
         // Handle glove open/close input
         switch (controllerType)
         {
+            // For the left controller
             case ControllerType.Left:
                 _inputManager.XRILeftHandInteraction.Select.performed += SelectOnPerformed;
                 _inputManager.XRILeftHandInteraction.Select.canceled += SelectOnCanceled;
@@ -40,6 +45,7 @@ public class Glove : MonoBehaviour
                 _inputManager.XRILeftHandInteraction.Activate.canceled += ActivateOnCanceled;
                 break;
 
+            // For the right controller
             case ControllerType.Right:
                 _inputManager.XRIRightHandInteraction.Select.performed += SelectOnPerformed;
                 _inputManager.XRIRightHandInteraction.Select.canceled += SelectOnCanceled;
@@ -134,26 +140,35 @@ public class Glove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        var contactPoint = other.ClosestPoint(transform.position);
+        var velocityMagnitude = _currentVelocity.magnitude;
+
+        // Check if fist is closed
+        if (!IsClosed) return;
+        // Check speed of glove
+        if (velocityMagnitude < MinPunchVelocity) return;
+
         if (other.CompareTag("Target"))
         {
             var target = other.GetComponent<Target>();
-            var contactPoint = other.ClosestPoint(transform.position);
-            var velocityMagnitude = _currentVelocity.magnitude;
 
             // Check if glove/target match
             if (target.controllerType != controllerType) return;
-            // Check if fist is closed
-            if (!IsClosed) return;
-            // Check speed of glove
-            if (velocityMagnitude < MinPunchVelocity) return;
 
             target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 5f);
             Destroy(target.transform.parent.gameObject);
-            Vibrate(velocityMagnitude, velocityMagnitude);
+            Vibrate(velocityMagnitude / 2f, velocityMagnitude / 2f);
 
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
             feedbackText.SetColor(textColor);
             feedbackText.SetSize(velocityMagnitude / MinPunchVelocity);
+        }
+        // If the gloves are smashed together then start the beat
+        else if (other.CompareTag("Glove"))
+        {
+            Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
+            StartCoroutine(BeatController.Instance.StartBeat());
+            Vibrate(velocityMagnitude, velocityMagnitude);
         }
     }
 }

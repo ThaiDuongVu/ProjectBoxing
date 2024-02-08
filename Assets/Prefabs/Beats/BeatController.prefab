@@ -45,7 +45,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -174,4 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda5a1dee080d504589665d1a8f53ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactablePrefabs:
+  - {fileID: 5316456525455761381, guid: fa1ebed25d848e846a26137e13a25729, type: 3}
+  - {fileID: -4163240095798691760, guid: 24f0443095c09b94998167390d1be6ee, type: 3}
   beats: []
