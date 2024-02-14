@@ -23,7 +23,7 @@ public class Glove : MonoBehaviour
     private Vector3 _lastPosition;
     private Vector3 _currentVelocity;
     private const float VelocityScale = 10f;
-    private const float MinPunchVelocity = 0.2f;
+    private const float MinPunchVelocity = 0.1f;
 
     private XRBaseController _controller;
     private XRInputManager _inputManager;
@@ -143,17 +143,16 @@ public class Glove : MonoBehaviour
         var contactPoint = other.ClosestPoint(transform.position);
         var velocityMagnitude = _currentVelocity.magnitude;
 
-        // Check if fist is closed
-        if (!IsClosed) return;
-        // Check speed of glove
-        if (velocityMagnitude < MinPunchVelocity) return;
-
         if (other.CompareTag("Target"))
         {
             var target = other.GetComponent<Target>();
 
             // Check if glove/target match
             if (target.controllerType != controllerType) return;
+            // Check if fist is closed
+            if (!IsClosed) return;
+            // Check speed of glove
+            if (velocityMagnitude < MinPunchVelocity) return;
 
             target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 5f);
             Destroy(target.transform.parent.gameObject);
@@ -166,6 +165,13 @@ public class Glove : MonoBehaviour
         // If the gloves are smashed together then start the beat
         else if (other.CompareTag("Glove"))
         {
+            var otherGlove = other.GetComponent<Glove>();
+
+            // Check if fist is closed
+            if (!IsClosed) return;
+            // Check speed of glove
+            if (velocityMagnitude < MinPunchVelocity) return;
+            
             Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
             StartCoroutine(BeatController.Instance.StartBeat());
             Vibrate(velocityMagnitude, velocityMagnitude);
