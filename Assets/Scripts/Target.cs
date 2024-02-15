@@ -10,7 +10,7 @@ public class Target : MonoBehaviour
     [SerializeField] private ParticleSystem explosionPrefab;
 
     private TargetPiece[] _pieces;
-    private const float ShatterForce = 4f;
+    public bool IsShattered { get; set; }
 
     #region Unity Events
 
@@ -36,6 +36,7 @@ public class Target : MonoBehaviour
             piece.SelfDestruct(3f);
         }
 
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);   
+        Instantiate(explosionPrefab, impactPoint, Quaternion.identity);
+        IsShattered = true;
     }
 }

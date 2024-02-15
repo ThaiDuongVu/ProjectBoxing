@@ -49,7 +49,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -70,8 +70,6 @@ MonoBehaviour:
   controllerType: 0
   rig: {fileID: 4440586402249732052}
   explosionPrefab: {fileID: 642786913745469833, guid: f78dc489201560c4c885da8f3439c288, type: 3}
-  feedbackTextPrefab: {fileID: 2309825481399445866, guid: 8322da373447d954faf3a90705a69351, type: 3}
-  textColor: {r: 0.93333334, g: 0.32156864, b: 0.3254902, a: 1}
 --- !u!1 &5919601050436338395
 GameObject:
   m_ObjectHideFlags: 0

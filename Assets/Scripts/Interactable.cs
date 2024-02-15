@@ -17,6 +17,6 @@ public class Interactable : MonoBehaviour
 
     private void Scroll()
     {
-        transform.Translate(-Vector3.forward * scrollSpeed * Time.deltaTime);
+        transform.Translate(scrollSpeed * Time.deltaTime * -Vector3.forward);
     }
 }

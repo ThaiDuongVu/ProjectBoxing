@@ -14,11 +14,12 @@ public class Glove : MonoBehaviour
     [SerializeField] private Color textColor;
 
     private Animator _animator;
-    private static readonly int CloseAnimationBool = Animator.StringToHash("isClosed");
+    private static readonly int CloseFingersAnimationBool = Animator.StringToHash("isClosedFingers");
+    private static readonly int CloseThumbsAnimationBool = Animator.StringToHash("isClosedThumbs");
     public bool IsClosed { get; private set; }
 
-    private bool _indexFingerClosed;
-    private bool _middleFingerClosed;
+    private bool _fingersClosed;
+    private bool _thumbClosed;
 
     private Vector3 _lastPosition;
     private Vector3 _currentVelocity;
@@ -78,9 +79,10 @@ public class Glove : MonoBehaviour
 
     private void Update()
     {
-        // Handle fist open/close
-        if (_middleFingerClosed && _indexFingerClosed) Close();
-        else Open();
+        // Handle glove open/close
+        _animator.SetBool(CloseThumbsAnimationBool, _thumbClosed);
+        _animator.SetBool(CloseFingersAnimationBool, _fingersClosed);
+        IsClosed = _thumbClosed && _fingersClosed;
 
         _currentVelocity = (_lastPosition - transform.position) * VelocityScale;
         _lastPosition = transform.position;
@@ -92,34 +94,33 @@ public class Glove : MonoBehaviour
 
     private void SelectOnPerformed(InputAction.CallbackContext context)
     {
-        _middleFingerClosed = true;
+        _thumbClosed = true;
     }
 
     private void SelectOnCanceled(InputAction.CallbackContext context)
     {
-        _middleFingerClosed = false;
+        _thumbClosed = false;
     }
 
     private void ActivateOnPerformed(InputAction.CallbackContext context)
     {
-        _indexFingerClosed = true;
+        _fingersClosed = true;
     }
 
     private void ActivateOnCanceled(InputAction.CallbackContext context)
     {
-        _indexFingerClosed = false;
+        _fingersClosed = false;
     }
 
     #endregion
 
-    #region Open & Close Fist
+    #region Open & Close Glove
 
     private void Open()
     {
         if (!IsClosed) return;
 
         IsClosed = false;
-        _animator.SetBool(CloseAnimationBool, false);
     }
 
     private void Close()
@@ -127,7 +128,6 @@ public class Glove : MonoBehaviour
         if (IsClosed) return;
 
         IsClosed = true;
-        _animator.SetBool(CloseAnimationBool, true);
     }
 
     #endregion
@@ -138,40 +138,42 @@ public class Glove : MonoBehaviour
         _controller.SendHapticImpulse(intensity, duration);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        var contactPoint = other.ClosestPoint(transform.position);
+        var contactPoint = other.GetContact(0).point;
         var velocityMagnitude = _currentVelocity.magnitude;
 
-        if (other.CompareTag("Target"))
+        if (other.transform.CompareTag("Target"))
         {
-            var target = other.GetComponent<Target>();
+            var target = other.transform.GetComponent<Target>();
 
-            // Check if glove/target match
+            // Check if target is already shattered
+            if (target.IsShattered) return;
+            // Check if glove/target type match
             if (target.controllerType != controllerType) return;
             // Check if fist is closed
             if (!IsClosed) return;
-            // Check speed of glove
+            // Check if glove is fast enough
             if (velocityMagnitude < MinPunchVelocity) return;
 
-            target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 5f);
+            target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 10f);
             Destroy(target.transform.parent.gameObject);
             Vibrate(velocityMagnitude / 2f, velocityMagnitude / 2f);
 
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
             feedbackText.SetColor(textColor);
-            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity);
+            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity * 0.5f);
         }
         // If the gloves are smashed together then start the beat
-        else if (other.CompareTag("Glove"))
+        else if (other.transform.CompareTag("Glove"))
         {
-            var otherGlove = other.GetComponent<Glove>();
+            var otherGlove = other.transform.GetComponent<Glove>();
 
             // Check if fist is closed
             if (!IsClosed) return;
             // Check speed of glove
             if (velocityMagnitude < MinPunchVelocity) return;
-            
+
             Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
             StartCoroutine(BeatController.Instance.StartBeat());
             Vibrate(velocityMagnitude, velocityMagnitude);
