@@ -25,6 +25,7 @@ public class Glove : MonoBehaviour
     private Vector3 _currentVelocity;
     private const float VelocityScale = 10f;
     private const float MinPunchVelocity = 0.1f;
+    public bool MinVelocityReached => _currentVelocity.magnitude >= MinPunchVelocity;
 
     private XRBaseController _controller;
     private XRInputManager _inputManager;
@@ -114,24 +115,6 @@ public class Glove : MonoBehaviour
 
     #endregion
 
-    #region Open & Close Glove
-
-    private void Open()
-    {
-        if (!IsClosed) return;
-
-        IsClosed = false;
-    }
-
-    private void Close()
-    {
-        if (IsClosed) return;
-
-        IsClosed = true;
-    }
-
-    #endregion
-
     private void Vibrate(float intensity, float duration)
     {
         if (!_controller) return;
@@ -154,29 +137,35 @@ public class Glove : MonoBehaviour
             // Check if fist is closed
             if (!IsClosed) return;
             // Check if glove is fast enough
-            if (velocityMagnitude < MinPunchVelocity) return;
+            if (!MinVelocityReached) return;
 
+            // TODO: Check glove direction
+            
             target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 10f);
             Destroy(target.transform.parent.gameObject);
             Vibrate(velocityMagnitude / 2f, velocityMagnitude / 2f);
 
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
             feedbackText.SetColor(textColor);
-            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity * 0.5f);
+            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity / 2f);
         }
-        // If the gloves are smashed together then start the beat
+        // If the gloves are smashed together then start the song
+        // TODO: Prevent accidental triggers
         else if (other.transform.CompareTag("Glove"))
         {
             var otherGlove = other.transform.GetComponent<Glove>();
 
-            // Check if fist is closed
-            if (!IsClosed) return;
-            // Check speed of glove
-            if (velocityMagnitude < MinPunchVelocity) return;
+            // Check if both gloves are closed
+            if (!IsClosed || !otherGlove.IsClosed) return;
+            // Check speed of both gloves
+            if (!MinVelocityReached || !otherGlove.MinVelocityReached) return;
 
             Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
-            StartCoroutine(BeatController.Instance.StartBeat());
             Vibrate(velocityMagnitude, velocityMagnitude);
+
+            // Start the song
+            // TODO: pause the song
+            if (BeatController.Instance) StartCoroutine(BeatController.Instance.StartBeat());
         }
     }
 }
