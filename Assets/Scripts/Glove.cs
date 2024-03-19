@@ -124,6 +124,7 @@ public class Glove : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         var contactPoint = other.GetContact(0).point;
+        var velocityDirection = _currentVelocity.normalized;
         var velocityMagnitude = _currentVelocity.magnitude;
 
         if (other.transform.CompareTag("Target"))
@@ -139,7 +140,7 @@ public class Glove : MonoBehaviour
             // Check if glove is fast enough
             if (!MinVelocityReached) return;
 
-            // TODO: Check glove direction
+            // TODO: Check glove direction for different moves
             
             target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 10f);
             Destroy(target.transform.parent.gameObject);
@@ -149,7 +150,7 @@ public class Glove : MonoBehaviour
             feedbackText.SetColor(textColor);
             feedbackText.SetSize(velocityMagnitude / MinPunchVelocity / 2f);
         }
-        // If the gloves are smashed together then start the song
+        // If the gloves are smashed together then start/pause the song
         // TODO: Prevent accidental triggers
         else if (other.transform.CompareTag("Glove"))
         {
@@ -164,8 +165,8 @@ public class Glove : MonoBehaviour
             Vibrate(velocityMagnitude, velocityMagnitude);
 
             // Start the song
-            // TODO: pause the song
-            if (BeatController.Instance) StartCoroutine(BeatController.Instance.StartBeat());
+            // TODO: pause/resume the song
+            BeatController.Instance.StartCoroutine(BeatController.Instance.StartBeat());
         }
     }
 }

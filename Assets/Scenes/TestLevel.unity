@@ -132,36 +132,12 @@ PrefabInstance:
       value: BeatController_NeverGonnaGiveYouUp
       objectReference: {fileID: 0}
     - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[1].action
-      value: 0
+      propertyPath: beats.Array.data[30].action
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[3].action
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[5].action
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[7].action
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[9].action
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[10].action
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[14].action
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1793895580128882089, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
-      propertyPath: beats.Array.data[15].action
-      value: 2
+      propertyPath: beats.Array.data[31].action
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2454574503872944101, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
       propertyPath: m_LocalPosition.x
@@ -169,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2454574503872944101, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 2454574503872944101, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2454574503872944101, guid: 0c97b30a781e0ef43bfe4667645dff48, type: 3}
       propertyPath: m_LocalRotation.w

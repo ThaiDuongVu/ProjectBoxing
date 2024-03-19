@@ -27,9 +27,13 @@ public class BeatController : MonoBehaviour
 
     private float _timer;
     private int _currentIndex;
+    private bool _isBeatStarted;
+
+    private const float SpawnDistance = 5f;
+    public const float ScrollSpeed = 1f;
+    public float CurrentScrollSpeed { get; private set; } = ScrollSpeed;
 
     private AudioSource _song;
-    private bool _isBeatStarted;
 
     #region Unity Events
 
@@ -40,13 +44,13 @@ public class BeatController : MonoBehaviour
 
     private void Start()
     {
-        _song.Stop();
-        // StartCoroutine(StartBeat());
+        StartCoroutine(StartBeat());
+        Invoke(nameof(PauseBeat), 5f + 5f);
+        Invoke(nameof(ResumeBeat), 5f + 10f);
     }
 
     private void Update()
     {
-        if (beats == null) return;
         if (!_isBeatStarted) return;
         if (_currentIndex > beats.Length - 1) return;
 
@@ -58,7 +62,7 @@ public class BeatController : MonoBehaviour
             var action = beats[_currentIndex].action;
             if (action != 0)
             {
-                Instantiate(interactablePrefabs[action - 1], new Vector3(0f, 1.75f, 4.5f), Quaternion.identity);
+                Instantiate(interactablePrefabs[action - 1], transform.position + Vector3.forward * SpawnDistance, Quaternion.identity);
             }
 
             _currentIndex++;
@@ -72,10 +76,25 @@ public class BeatController : MonoBehaviour
         if (_isBeatStarted) yield break;
 
         _isBeatStarted = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(SpawnDistance);
         _song.Play();
     }
 
+    public void PauseBeat()
+    {
+        _isBeatStarted = false;
+        CurrentScrollSpeed = 0f;
+        _song.Pause();
+    }
+
+    public void ResumeBeat()
+    {
+        _isBeatStarted = true;
+        CurrentScrollSpeed = ScrollSpeed;
+        _song.Play();
+    }
+
+    // Execute in edit to fill beat arrays with timestamops
     private void PopulateBeats(string fileName)
     {
         var streamReader = new StreamReader($"{Application.dataPath}/Beats/{fileName}");

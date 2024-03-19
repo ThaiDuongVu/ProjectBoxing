@@ -177,4 +177,6 @@ MonoBehaviour:
   interactablePrefabs:
   - {fileID: 5316456525455761381, guid: fa1ebed25d848e846a26137e13a25729, type: 3}
   - {fileID: -4163240095798691760, guid: 24f0443095c09b94998167390d1be6ee, type: 3}
+  - {fileID: 5316456525455761381, guid: 49af0d5b58d6b72478f97e76536027e1, type: 3}
+  - {fileID: 5316456525455761381, guid: c36c8265ae7429d4b82d37b0413922d8, type: 3}
   beats: []
