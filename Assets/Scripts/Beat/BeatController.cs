@@ -25,6 +25,9 @@ public class BeatController : MonoBehaviour
     [Header("Beats")]
     [SerializeField] private Beat[] beats;
 
+    [Header("Misc References")]
+    [SerializeField] private TV tv;
+
     private float _timer;
     private int _currentIndex;
     private bool _isBeatStarted;
@@ -69,7 +72,10 @@ public class BeatController : MonoBehaviour
     {
         IsBeatInit = true;
         _isBeatStarted = true;
+        tv.SetMessage("Preparing song...");
+
         yield return new WaitForSeconds(SpawnDistance);
+        tv.SetMessage("Vibing");
         _song.Play();
     }
 
@@ -77,6 +83,8 @@ public class BeatController : MonoBehaviour
     {
         _isBeatStarted = false;
         CurrentScrollSpeed = 0f;
+        tv.SetMessage("Paused");
+
         _song.Pause();
     }
 
@@ -84,6 +92,8 @@ public class BeatController : MonoBehaviour
     {
         _isBeatStarted = true;
         CurrentScrollSpeed = ScrollSpeed;
+        tv.SetMessage("Vibing");
+        
         _song.UnPause();
     }
 
