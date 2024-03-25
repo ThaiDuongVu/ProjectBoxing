@@ -28,6 +28,7 @@ public class BeatController : MonoBehaviour
     private float _timer;
     private int _currentIndex;
     private bool _isBeatStarted;
+    public bool IsBeatInit { get; private set; }
 
     private const float SpawnDistance = 5f;
     public const float ScrollSpeed = 1f;
@@ -40,13 +41,6 @@ public class BeatController : MonoBehaviour
     private void Awake()
     {
         _song = GetComponentInChildren<AudioSource>();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(StartBeat());
-        Invoke(nameof(PauseBeat), 5f + 5f);
-        Invoke(nameof(ResumeBeat), 5f + 10f);
     }
 
     private void Update()
@@ -73,8 +67,7 @@ public class BeatController : MonoBehaviour
 
     public IEnumerator StartBeat()
     {
-        if (_isBeatStarted) yield break;
-
+        IsBeatInit = true;
         _isBeatStarted = true;
         yield return new WaitForSeconds(SpawnDistance);
         _song.Play();
@@ -91,7 +84,13 @@ public class BeatController : MonoBehaviour
     {
         _isBeatStarted = true;
         CurrentScrollSpeed = ScrollSpeed;
-        _song.Play();
+        _song.UnPause();
+    }
+
+    public void ToggleBeat()
+    {
+        if (_isBeatStarted) PauseBeat();
+        else ResumeBeat();
     }
 
     // Execute in edit to fill beat arrays with timestamops

@@ -27,6 +27,8 @@ public class Glove : MonoBehaviour
     private const float MinPunchVelocity = 0.1f;
     public bool MinVelocityReached => _currentVelocity.magnitude >= MinPunchVelocity;
 
+    private bool _collisionBuffer = true;
+
     private XRBaseController _controller;
     private XRInputManager _inputManager;
 
@@ -121,6 +123,11 @@ public class Glove : MonoBehaviour
         _controller.SendHapticImpulse(intensity, duration);
     }
 
+    private void EnableCollisionBuffer()
+    {
+        _collisionBuffer = true;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         var contactPoint = other.GetContact(0).point;
@@ -141,7 +148,7 @@ public class Glove : MonoBehaviour
             if (!MinVelocityReached) return;
 
             // TODO: Check glove direction for different moves
-            
+
             target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 10f);
             Destroy(target.transform.parent.gameObject);
             Vibrate(velocityMagnitude / 2f, velocityMagnitude / 2f);
@@ -154,19 +161,29 @@ public class Glove : MonoBehaviour
         // TODO: Prevent accidental triggers
         else if (other.transform.CompareTag("Glove"))
         {
-            var otherGlove = other.transform.GetComponent<Glove>();
+            if (_collisionBuffer)
+            {
+                var otherGlove = other.transform.GetComponent<Glove>();
 
-            // Check if both gloves are closed
-            if (!IsClosed || !otherGlove.IsClosed) return;
-            // Check speed of both gloves
-            if (!MinVelocityReached || !otherGlove.MinVelocityReached) return;
+                // Check if both gloves are closed
+                if (!IsClosed || !otherGlove.IsClosed) return;
+                // Check speed of both gloves
+                if (!MinVelocityReached || !otherGlove.MinVelocityReached) return;
 
-            Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
-            Vibrate(velocityMagnitude, velocityMagnitude);
+                Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
+                Vibrate(velocityMagnitude, velocityMagnitude);
 
-            // Start the song
-            // TODO: pause/resume the song
-            BeatController.Instance.StartCoroutine(BeatController.Instance.StartBeat());
+                // Only run this code once
+                if (controllerType == ControllerType.Left)
+                {
+                    // Start/pause/resume the song
+                    if (BeatController.Instance.IsBeatInit) BeatController.Instance.ToggleBeat();
+                    else BeatController.Instance.StartCoroutine(BeatController.Instance.StartBeat());
+
+                    _collisionBuffer = false;
+                    Invoke(nameof(EnableCollisionBuffer), 0.1f);
+                }
+            }
         }
     }
 }
