@@ -24,8 +24,10 @@ public class Glove : MonoBehaviour
     private Vector3 _lastPosition;
     private Vector3 _currentVelocity;
     private const float VelocityScale = 10f;
-    private const float MinPunchVelocity = 0.1f;
-    public bool MinVelocityReached => _currentVelocity.magnitude >= MinPunchVelocity;
+    public Vector3 CurrentDirection => _currentVelocity.normalized;
+    public float CurrentSpeed => _currentVelocity.magnitude;
+    private const float MinPunchSpeed = 0.1f;
+    public bool MinSpeedReached => CurrentSpeed >= MinPunchSpeed;
 
     private bool _collisionBuffer = true;
 
@@ -86,8 +88,11 @@ public class Glove : MonoBehaviour
         _animator.SetBool(CloseThumbsAnimationBool, _thumbClosed);
         _animator.SetBool(CloseFingersAnimationBool, _fingersClosed);
         IsClosed = _thumbClosed && _fingersClosed;
+    }
 
-        _currentVelocity = (_lastPosition - transform.position) * VelocityScale;
+    private void FixedUpdate()
+    {
+        _currentVelocity = (transform.position - _lastPosition) * VelocityScale;
         _lastPosition = transform.position;
     }
 
@@ -131,12 +136,11 @@ public class Glove : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         var contactPoint = other.GetContact(0).point;
-        var velocityDirection = _currentVelocity.normalized;
-        var velocityMagnitude = _currentVelocity.magnitude;
 
         if (other.transform.CompareTag("Target"))
         {
             var target = other.transform.GetComponent<Target>();
+            var targetDirection = target.transform.forward;
 
             // Check if target is already shattered
             if (target.IsShattered) return;
@@ -145,22 +149,31 @@ public class Glove : MonoBehaviour
             // Check if fist is closed
             if (!IsClosed) return;
             // Check if glove is fast enough
-            if (!MinVelocityReached) return;
+            if (!MinSpeedReached) return;
 
-            // TODO: Check glove direction for different moves
+            // Check if glove direction match target's
+            if ((CurrentDirection - targetDirection).magnitude > 0.4f)
+            {
+                // feedbackText.SetMessage("Incorrect move!");
+                return;
+            }
+            else
+            {
+                Debug.Log(target.AbsoluteOptimumTime);
+            }
 
-            target.Shatter(-_currentVelocity.normalized, contactPoint, velocityMagnitude * 10f);
+            target.Shatter(-_currentVelocity.normalized, contactPoint, CurrentSpeed * 10f);
             Destroy(target.transform.parent.gameObject);
-            Vibrate(velocityMagnitude / 2f, velocityMagnitude / 2f);
+            Vibrate(CurrentSpeed / 2f, CurrentSpeed / 2f);
 
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
             feedbackText.SetColor(textColor);
-            feedbackText.SetSize(velocityMagnitude / MinPunchVelocity / 2f);
+            feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 4f);
         }
         // If the gloves are smashed together then start/pause the song
-        // TODO: Prevent accidental triggers
         else if (other.transform.CompareTag("Glove"))
         {
+            // Prevent spamming
             if (_collisionBuffer)
             {
                 var otherGlove = other.transform.GetComponent<Glove>();
@@ -168,10 +181,13 @@ public class Glove : MonoBehaviour
                 // Check if both gloves are closed
                 if (!IsClosed || !otherGlove.IsClosed) return;
                 // Check speed of both gloves
-                if (!MinVelocityReached || !otherGlove.MinVelocityReached) return;
+                if (!MinSpeedReached || !otherGlove.MinSpeedReached) return;
+                // Prevent accidental triggers
+                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.8f) return;
+                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.8f) return;
 
                 Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
-                Vibrate(velocityMagnitude, velocityMagnitude);
+                Vibrate(CurrentSpeed, CurrentSpeed);
 
                 // Only run this code once
                 if (controllerType == ControllerType.Left)
@@ -179,10 +195,10 @@ public class Glove : MonoBehaviour
                     // Start/pause/resume the song
                     if (BeatController.Instance.IsBeatInit) BeatController.Instance.ToggleBeat();
                     else BeatController.Instance.StartCoroutine(BeatController.Instance.StartBeat());
-
-                    _collisionBuffer = false;
-                    Invoke(nameof(EnableCollisionBuffer), 0.1f);
                 }
+
+                _collisionBuffer = false;
+                Invoke(nameof(EnableCollisionBuffer), 0.1f);
             }
         }
     }

@@ -12,11 +12,19 @@ public class Target : MonoBehaviour
     private TargetPiece[] _pieces;
     public bool IsShattered { get; set; }
 
+    public float OptimumTime { get; private set; } = 5f;
+    public float AbsoluteOptimumTime => Mathf.Abs(OptimumTime);
+
     #region Unity Events
 
     private void Awake()
     {
         _pieces = rig.GetComponentsInChildren<TargetPiece>();
+    }
+
+    private void Update()
+    {
+        OptimumTime -= Time.deltaTime;
     }
 
     #endregion

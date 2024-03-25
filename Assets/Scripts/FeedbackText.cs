@@ -19,7 +19,7 @@ public class FeedbackText : MonoBehaviour
 
     #endregion
 
-    public void SetText(string message)
+    public void SetMessage(string message)
     {
         _text.SetText(message);
     }
