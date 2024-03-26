@@ -150,17 +150,12 @@ public class Glove : MonoBehaviour
             if (!IsClosed) return;
             // Check if glove is fast enough
             if (!MinSpeedReached) return;
-
             // Check if glove direction match target's
-            if ((CurrentDirection - targetDirection).magnitude > 0.4f)
-            {
-                // feedbackText.SetMessage("Incorrect move!");
-                return;
-            }
-            else
-            {
-                Debug.Log(target.AbsoluteOptimumTime);
-            }
+            if ((CurrentDirection - targetDirection).magnitude > 0.4f) return;
+
+            // TODO: Update combo based on optimum time
+            // TODO: Add score
+            Debug.Log(target.AbsoluteOptimumTime);
 
             target.Shatter(-_currentVelocity.normalized, contactPoint, CurrentSpeed * 10f);
             Destroy(target.transform.parent.gameObject);

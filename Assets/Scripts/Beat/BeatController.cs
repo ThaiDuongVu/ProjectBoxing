@@ -46,6 +46,11 @@ public class BeatController : MonoBehaviour
         _song = GetComponentInChildren<AudioSource>();
     }
 
+    private void Start()
+    {
+        // StartCoroutine(StartBeat());
+    }
+
     private void Update()
     {
         if (!_isBeatStarted) return;
