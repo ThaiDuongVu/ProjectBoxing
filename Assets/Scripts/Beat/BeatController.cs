@@ -58,7 +58,7 @@ public class BeatController : MonoBehaviour
         if (!_isBeatStarted) return;
         if (_currentIndex > beats.Length - 1) 
         {
-            tv.SetText("Song completed");
+            tv.SetText("Song completed!");
             return;
         }
 

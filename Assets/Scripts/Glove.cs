@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Glove : MonoBehaviour
@@ -133,6 +134,14 @@ public class Glove : MonoBehaviour
         _collisionBuffer = true;
     }
 
+    private int OptimumTimeToCombo(float absOptimumTime)
+    {
+        if (absOptimumTime < 0.1f) return 3;
+        if (absOptimumTime < 0.25f) return 2;
+        if (absOptimumTime < 0.5f) return 1;
+        return 0;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         var contactPoint = other.GetContact(0).point;
@@ -153,18 +162,19 @@ public class Glove : MonoBehaviour
             // Check if glove direction match target's
             if ((CurrentDirection - targetDirection).magnitude > 0.4f) return;
 
-            // TODO: Update combo based on optimum time
-            ComboController.Instance.AddCombo();
-            Debug.Log(target.AbsoluteOptimumTime);
+            // Update combo based on optimum time
+            ComboController.Instance.AddCombo(OptimumTimeToCombo(target.AbsoluteOptimumTime));
             var addedScore = 100 * ComboController.Instance.CurrentCombo;
-            ScoreController.Instance.CurrentScore += 100 * ComboController.Instance.CurrentCombo;
+            ScoreController.Instance.CurrentScore += addedScore;
 
+            // Destroy target
             target.Shatter(-_currentVelocity.normalized, contactPoint, CurrentSpeed * 10f);
             Destroy(target.transform.parent.gameObject);
             Vibrate(CurrentSpeed / 2f, CurrentSpeed / 2f);
 
+            // Provide feedback text
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
-            feedbackText.SetText($"+{100 * ComboController.Instance.CurrentCombo}");
+            feedbackText.SetText($"+{addedScore}");
             feedbackText.SetColor(textColor);
             feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 2f);
         }
@@ -181,11 +191,13 @@ public class Glove : MonoBehaviour
                 // Check speed of both gloves
                 if (!MinSpeedReached || !otherGlove.MinSpeedReached) return;
                 // Prevent accidental triggers
-                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.75f && transform.forward.x < 0.75f) return;
-                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.75f && transform.forward.x > -0.75f) return;
+                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.9f && transform.forward.x < 0.9f) return;
+                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.9f && transform.forward.x > -0.9f) return;
 
                 Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
                 Vibrate(CurrentSpeed, CurrentSpeed);
+
+                if (SceneManager.GetActiveScene().name.Equals("Home")) return;
 
                 // Only run this code once
                 if (controllerType == ControllerType.Left)

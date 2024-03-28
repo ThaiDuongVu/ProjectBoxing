@@ -2014,7 +2014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: beats.Array.data[53].action
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4522996261881248188, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: m_Name

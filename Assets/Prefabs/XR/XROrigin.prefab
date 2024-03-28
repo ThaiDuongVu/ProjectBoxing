@@ -1725,3 +1725,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86acaecf63d55be4599fd3ef74a4d3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedbackTextPrefab: {fileID: 2309825481399445866, guid: 8322da373447d954faf3a90705a69351, type: 3}
+  textColor: {r: 0.5764706, g: 0.22352941, b: 0.94509804, a: 1}
