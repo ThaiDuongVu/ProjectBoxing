@@ -7,6 +7,7 @@ TagManager:
   - Target
   - Glove
   - Head
+  - Obstacle
   layers:
   - Default
   - TransparentFX

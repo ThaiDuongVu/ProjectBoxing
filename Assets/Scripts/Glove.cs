@@ -26,7 +26,7 @@ public class Glove : MonoBehaviour
     private const float VelocityScale = 10f;
     public Vector3 CurrentDirection => _currentVelocity.normalized;
     public float CurrentSpeed => _currentVelocity.magnitude;
-    private const float MinPunchSpeed = 0.1f;
+    private const float MinPunchSpeed = 0.2f;
     public bool MinSpeedReached => CurrentSpeed >= MinPunchSpeed;
 
     private bool _collisionBuffer = true;
@@ -122,7 +122,7 @@ public class Glove : MonoBehaviour
 
     #endregion
 
-    private void Vibrate(float intensity, float duration)
+    public void Vibrate(float intensity, float duration)
     {
         if (!_controller) return;
         _controller.SendHapticImpulse(intensity, duration);
@@ -139,7 +139,7 @@ public class Glove : MonoBehaviour
 
         if (other.transform.CompareTag("Target"))
         {
-            var target = other.transform.GetComponent<Target>();
+            var target = other.transform.GetComponent<Destructible>();
             var targetDirection = target.transform.forward;
 
             // Check if target is already shattered
@@ -154,7 +154,9 @@ public class Glove : MonoBehaviour
             if ((CurrentDirection - targetDirection).magnitude > 0.4f) return;
 
             // TODO: Update combo based on optimum time
+            ComboController.Instance.AddCombo();
             Debug.Log(target.AbsoluteOptimumTime);
+            var addedScore = 100 * ComboController.Instance.CurrentCombo;
             ScoreController.Instance.CurrentScore += 100 * ComboController.Instance.CurrentCombo;
 
             target.Shatter(-_currentVelocity.normalized, contactPoint, CurrentSpeed * 10f);
@@ -162,8 +164,9 @@ public class Glove : MonoBehaviour
             Vibrate(CurrentSpeed / 2f, CurrentSpeed / 2f);
 
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
+            feedbackText.SetText($"+{100 * ComboController.Instance.CurrentCombo}");
             feedbackText.SetColor(textColor);
-            feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 4f);
+            feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 2f);
         }
         // If the gloves are smashed together then start/pause the song
         else if (other.transform.CompareTag("Glove"))
@@ -178,8 +181,8 @@ public class Glove : MonoBehaviour
                 // Check speed of both gloves
                 if (!MinSpeedReached || !otherGlove.MinSpeedReached) return;
                 // Prevent accidental triggers
-                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.8f) return;
-                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.8f) return;
+                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.75f && transform.forward.x < 0.75f) return;
+                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.75f && transform.forward.x > -0.75f) return;
 
                 Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
                 Vibrate(CurrentSpeed, CurrentSpeed);

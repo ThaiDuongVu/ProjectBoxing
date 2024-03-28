@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TargetPiece : MonoBehaviour
+public class DestructiblePiece : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Collider _collider;

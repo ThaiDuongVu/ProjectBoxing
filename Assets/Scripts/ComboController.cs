@@ -54,9 +54,9 @@ public class ComboController : MonoBehaviour
 
     #endregion
 
-    public void AddCombo()
+    public void AddCombo(int amount = 1)
     {
-        CurrentCombo++;
+        CurrentCombo += 1;
         _comboTimer = 1f;
     }
 }

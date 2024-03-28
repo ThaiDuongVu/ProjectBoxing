@@ -1996,6 +1996,26 @@ PrefabInstance:
       propertyPath: beats.Array.data[31].action
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[34].action
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[35].action
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[43].action
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[44].action
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566434544762527448, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
+      propertyPath: beats.Array.data[53].action
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4522996261881248188, guid: 16e5f379adbeb64429afdc826065e014, type: 3}
       propertyPath: m_Name
       value: BeatController_NeverGonnaGiveYouUp

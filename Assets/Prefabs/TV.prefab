@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 2849738774726675330}
   comboText: {fileID: 7493773236265061190}
+  scoreText: {fileID: 8087050723769796475}
 --- !u!1 &3135072036328874853
 GameObject:
   m_ObjectHideFlags: 0

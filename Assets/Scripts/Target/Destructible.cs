@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class Destructible : MonoBehaviour
 {
     public ControllerType controllerType;
 
@@ -9,7 +9,7 @@ public class Target : MonoBehaviour
     [SerializeField] private Transform rig;
     [SerializeField] private ParticleSystem explosionPrefab;
 
-    private TargetPiece[] _pieces;
+    private DestructiblePiece[] _pieces;
     public bool IsShattered { get; set; }
 
     public float OptimumTime { get; private set; } = 5f;
@@ -19,7 +19,7 @@ public class Target : MonoBehaviour
 
     private void Awake()
     {
-        _pieces = rig.GetComponentsInChildren<TargetPiece>();
+        _pieces = rig.GetComponentsInChildren<DestructiblePiece>();
     }
 
     private void Update()

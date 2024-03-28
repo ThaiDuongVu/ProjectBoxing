@@ -37,6 +37,8 @@ public class BeatController : MonoBehaviour
     public const float ScrollSpeed = 1f;
     public float CurrentScrollSpeed { get; private set; } = ScrollSpeed;
 
+    private bool _noInput;
+
     private AudioSource _song;
 
     #region Unity Events
@@ -54,7 +56,11 @@ public class BeatController : MonoBehaviour
     private void Update()
     {
         if (!_isBeatStarted) return;
-        if (_currentIndex > beats.Length - 1) return;
+        if (_currentIndex > beats.Length - 1) 
+        {
+            tv.SetText("Song completed");
+            return;
+        }
 
         _timer += Time.deltaTime;
 
@@ -75,6 +81,9 @@ public class BeatController : MonoBehaviour
 
     public IEnumerator StartBeat()
     {
+        if (_noInput) yield break;
+
+        _noInput = true;
         _isBeatStarted = true;
         tv.SetText("Preparing song...");
 
@@ -82,10 +91,13 @@ public class BeatController : MonoBehaviour
         IsBeatInit = true;
         tv.SetText("Vibing~");
         _song.Play();
+        _noInput = false;
     }
 
     public void PauseBeat()
     {
+        if (_noInput) return;
+
         _isBeatStarted = false;
         CurrentScrollSpeed = 0f;
         tv.SetText("Paused");
@@ -95,10 +107,12 @@ public class BeatController : MonoBehaviour
 
     public void ResumeBeat()
     {
+        if (_noInput) return;
+
         _isBeatStarted = true;
         CurrentScrollSpeed = ScrollSpeed;
         tv.SetText("Vibing~");
-        
+
         _song.UnPause();
     }
 
