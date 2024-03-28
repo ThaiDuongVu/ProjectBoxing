@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4185657754164499681}
   - component: {fileID: 7271526272044853926}
   m_Layer: 0
-  m_Name: HomeController
+  m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

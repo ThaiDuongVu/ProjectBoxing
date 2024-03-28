@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HomeController : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
@@ -11,7 +11,8 @@ public class HomeController : MonoBehaviour
 
     private IEnumerator LoadSceneCoroutine(string sceneName)
     {
-        yield return new WaitForSeconds(1f);
+        MainCameraController.Instance.Outro();
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 

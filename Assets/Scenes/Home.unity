@@ -448,7 +448,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2731633952235087387, guid: 5bbcad99b9680d44099c518d23014b1a, type: 3}
       propertyPath: m_Name
-      value: HomeController
+      value: SceneLoader
       objectReference: {fileID: 0}
     - target: {fileID: 4185657754164499681, guid: 5bbcad99b9680d44099c518d23014b1a, type: 3}
       propertyPath: m_LocalPosition.x

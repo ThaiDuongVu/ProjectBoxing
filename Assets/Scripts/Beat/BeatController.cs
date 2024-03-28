@@ -27,6 +27,8 @@ public class BeatController : MonoBehaviour
 
     [Header("Misc References")]
     [SerializeField] private TV tv;
+    [SerializeField] private GameObject gameplayObjects;
+    [SerializeField] private GameObject pausedObjects;
 
     private float _timer;
     private int _currentIndex;
@@ -50,13 +52,14 @@ public class BeatController : MonoBehaviour
 
     private void Start()
     {
-        // StartCoroutine(StartBeat());
+        pausedObjects.SetActive(false);
+        gameplayObjects.SetActive(true);
     }
 
     private void Update()
     {
         if (!_isBeatStarted) return;
-        if (_currentIndex > beats.Length - 1) 
+        if (_currentIndex > beats.Length - 1)
         {
             tv.SetText("Song completed!");
             return;
@@ -70,7 +73,8 @@ public class BeatController : MonoBehaviour
             var action = beats[_currentIndex].action;
             if (action != 0)
             {
-                Instantiate(interactablePrefabs[action - 1], transform.position + Vector3.forward * SpawnDistance, Quaternion.identity);
+                Instantiate(interactablePrefabs[action - 1], transform.position + Vector3.forward * SpawnDistance, Quaternion.identity)
+                    .transform.SetParent(gameplayObjects.transform);
             }
 
             _currentIndex++;
@@ -102,6 +106,9 @@ public class BeatController : MonoBehaviour
         CurrentScrollSpeed = 0f;
         tv.SetText("Paused");
 
+        pausedObjects.SetActive(true);
+        gameplayObjects.SetActive(false);
+
         _song.Pause();
     }
 
@@ -112,6 +119,9 @@ public class BeatController : MonoBehaviour
         _isBeatStarted = true;
         CurrentScrollSpeed = ScrollSpeed;
         tv.SetText("Vibing~");
+
+        pausedObjects.SetActive(false);
+        gameplayObjects.SetActive(true);
 
         _song.UnPause();
     }

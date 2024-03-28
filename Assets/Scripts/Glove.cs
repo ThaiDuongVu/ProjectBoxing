@@ -27,7 +27,7 @@ public class Glove : MonoBehaviour
     private const float VelocityScale = 10f;
     public Vector3 CurrentDirection => _currentVelocity.normalized;
     public float CurrentSpeed => _currentVelocity.magnitude;
-    private const float MinPunchSpeed = 0.2f;
+    private const float MinPunchSpeed = 0.1f;
     public bool MinSpeedReached => CurrentSpeed >= MinPunchSpeed;
 
     private bool _collisionBuffer = true;
@@ -176,7 +176,7 @@ public class Glove : MonoBehaviour
             var feedbackText = Instantiate(feedbackTextPrefab, contactPoint, Quaternion.identity);
             feedbackText.SetText($"+{addedScore}");
             feedbackText.SetColor(textColor);
-            feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 2f);
+            feedbackText.SetSize(CurrentSpeed / MinPunchSpeed / 4f);
         }
         // If the gloves are smashed together then start/pause the song
         else if (other.transform.CompareTag("Glove"))
