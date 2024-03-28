@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerType: 0
   rig: {fileID: 8422260516829652174}
-  explosionPrefab: {fileID: 642786913745469833, guid: f3457b42dcc52be4e9301398fe76e0fb, type: 3}
+  explosionPrefab: {fileID: 642786913745469833, guid: f78dc489201560c4c885da8f3439c288, type: 3}
 --- !u!1 &8331234083821751914
 GameObject:
   m_ObjectHideFlags: 0

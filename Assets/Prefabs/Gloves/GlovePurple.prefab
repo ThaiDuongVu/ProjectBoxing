@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6802102819102442466}
   - component: {fileID: 6697872844819636782}
   m_Layer: 0
-  m_Name: GloveRed
+  m_Name: GlovePurple
   m_TagString: Glove
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerType: 0
-  explosionPrefab: {fileID: 642786913745469833, guid: f78dc489201560c4c885da8f3439c288, type: 3}
+  explosionPrefab: {fileID: 642786913745469833, guid: f3457b42dcc52be4e9301398fe76e0fb, type: 3}
   feedbackTextPrefab: {fileID: 2309825481399445866, guid: 8322da373447d954faf3a90705a69351, type: 3}
-  textColor: {r: 0.93333334, g: 0.32156864, b: 0.3254902, a: 1}
+  textColor: {r: 0.5764706, g: 0.22352941, b: 0.94509804, a: 1}
 --- !u!1 &2521811022079536459
 GameObject:
   m_ObjectHideFlags: 0

@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 889861455370010796}
   - component: {fileID: 7870609452012396502}
   m_Layer: 0
-  m_Name: TargetRed
+  m_Name: TargetPurple
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerType: 0
   rig: {fileID: 4440586402249732052}
-  explosionPrefab: {fileID: 642786913745469833, guid: f78dc489201560c4c885da8f3439c288, type: 3}
+  explosionPrefab: {fileID: 642786913745469833, guid: f3457b42dcc52be4e9301398fe76e0fb, type: 3}
 --- !u!1 &5919601050436338395
 GameObject:
   m_ObjectHideFlags: 0

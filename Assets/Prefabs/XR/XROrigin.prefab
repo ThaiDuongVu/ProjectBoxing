@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackTextPrefab: {fileID: 2309825481399445866, guid: 8322da373447d954faf3a90705a69351, type: 3}
-  textColor: {r: 0.5764706, g: 0.22352941, b: 0.94509804, a: 1}
+  textColor: {r: 0.85490197, g: 0.023529412, b: 0.0627451, a: 1}
 --- !u!95 &7907821665853078998
 Animator:
   serializedVersion: 7
