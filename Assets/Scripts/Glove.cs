@@ -154,8 +154,8 @@ public class Glove : MonoBehaviour
             if ((CurrentDirection - targetDirection).magnitude > 0.4f) return;
 
             // TODO: Update combo based on optimum time
-            // TODO: Add score
             Debug.Log(target.AbsoluteOptimumTime);
+            ScoreController.Instance.CurrentScore += 100 * ComboController.Instance.CurrentCombo;
 
             target.Shatter(-_currentVelocity.normalized, contactPoint, CurrentSpeed * 10f);
             Destroy(target.transform.parent.gameObject);

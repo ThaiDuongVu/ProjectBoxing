@@ -6,20 +6,21 @@ public class TV : MonoBehaviour
 {
     [SerializeField] private TMP_Text text;
     [SerializeField] private TMP_Text comboText;
+    [SerializeField] private TMP_Text scoreText;
 
-    public void SetMessage(string message)
+    public void SetText(string message)
     {
         text.SetText(message);
     }
 
     public IEnumerator SetTempMessage(string message1, string message2, float delay)
     {
-        SetMessage(message1);
+        SetText(message1);
         yield return new WaitForSeconds(delay);
-        SetMessage(message2);
+        SetText(message2);
     }
 
-    public void SetCombo(int combo)
+    public void SetComboText(int combo)
     {
         comboText.SetText($"x{combo}");
     }
@@ -29,8 +30,8 @@ public class TV : MonoBehaviour
         comboText.transform.localScale = scale;
     }
 
-    public void SetSize(float size)
+    public void SetScoreText(int score)
     {
-        text.fontSize = size;
+        scoreText.SetText($"{score}");
     }
 }

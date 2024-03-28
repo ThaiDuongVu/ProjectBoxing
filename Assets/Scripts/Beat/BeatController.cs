@@ -76,11 +76,11 @@ public class BeatController : MonoBehaviour
     public IEnumerator StartBeat()
     {
         _isBeatStarted = true;
-        tv.SetMessage("Preparing song...");
+        tv.SetText("Preparing song...");
 
         yield return new WaitForSeconds(SpawnDistance);
         IsBeatInit = true;
-        tv.SetMessage("Vibing~");
+        tv.SetText("Vibing~");
         _song.Play();
     }
 
@@ -88,7 +88,7 @@ public class BeatController : MonoBehaviour
     {
         _isBeatStarted = false;
         CurrentScrollSpeed = 0f;
-        tv.SetMessage("Paused");
+        tv.SetText("Paused");
 
         _song.Pause();
     }
@@ -97,7 +97,7 @@ public class BeatController : MonoBehaviour
     {
         _isBeatStarted = true;
         CurrentScrollSpeed = ScrollSpeed;
-        tv.SetMessage("Vibing~");
+        tv.SetText("Vibing~");
         
         _song.UnPause();
     }

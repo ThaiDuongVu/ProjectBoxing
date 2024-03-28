@@ -21,7 +21,7 @@ public class ComboController : MonoBehaviour
 
     public int CurrentCombo { get; private set; }
     private float _comboTimer;
-    private float _comboDecreaseFactor = 0.5f;
+    private const float ComboDecreaseFactor = 0.5f;
 
     #region Unity Events
 
@@ -32,7 +32,7 @@ public class ComboController : MonoBehaviour
 
     private void Update()
     {
-        tv.SetCombo(CurrentCombo);
+        tv.SetComboText(CurrentCombo);
 
         if (CurrentCombo <= 1) 
         {
@@ -42,7 +42,7 @@ public class ComboController : MonoBehaviour
 
         if (_comboTimer > 0f)
         {
-            _comboTimer -= Time.deltaTime * _comboDecreaseFactor;
+            _comboTimer -= Time.deltaTime * ComboDecreaseFactor;
         }
         else
         {
