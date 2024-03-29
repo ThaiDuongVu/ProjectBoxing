@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4509953864680826526, guid: 33b6f4bb37e990a489cd62c1944c029a, type: 3}
       propertyPath: m_text
-      value: quit
+      value: give up
       objectReference: {fileID: 0}
     - target: {fileID: 5051175860438770240, guid: 33b6f4bb37e990a489cd62c1944c029a, type: 3}
       propertyPath: m_Mesh
