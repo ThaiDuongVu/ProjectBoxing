@@ -27,6 +27,7 @@ public class BeatController : MonoBehaviour
 
     [Header("Misc References")]
     [SerializeField] private TV tv;
+    [SerializeField] private GameObject tutorialDisplay;
     [SerializeField] private GameObject gameplayObjects;
     [SerializeField] private GameObject pausedObjects;
 
@@ -54,6 +55,7 @@ public class BeatController : MonoBehaviour
     {
         pausedObjects.SetActive(false);
         gameplayObjects.SetActive(true);
+        tutorialDisplay.SetActive(true);
     }
 
     private void Update()
@@ -94,6 +96,7 @@ public class BeatController : MonoBehaviour
         yield return new WaitForSeconds(SpawnDistance);
         IsBeatInit = true;
         tv.SetText("Vibing~");
+        tutorialDisplay.SetActive(false);
         _song.Play();
         _noInput = false;
     }

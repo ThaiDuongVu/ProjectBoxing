@@ -28,6 +28,12 @@ public class MainCameraController : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     #endregion
 
     #region Intro & Outro

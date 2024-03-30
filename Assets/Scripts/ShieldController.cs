@@ -49,7 +49,7 @@ public class ShieldController : MonoBehaviour
         if (!_leftGlove || !_rightGlove) return false;
 
         // Check if gloves are closed
-        // if (!_leftGlove.IsClosed || !_rightGlove.IsClosed) return false;
+        if (!_leftGlove.IsClosed || !_rightGlove.IsClosed) return false;
 
         // Check gloves orientation
         if ((_leftGlove.transform.forward - _cameraTransform.up).magnitude > 0.4f) return false;
