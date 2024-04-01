@@ -52,13 +52,13 @@ public class ShieldController : MonoBehaviour
         if (!_leftGlove.IsClosed || !_rightGlove.IsClosed) return false;
 
         // Check gloves orientation
-        if ((_leftGlove.transform.forward - _cameraTransform.up).magnitude > 0.4f) return false;
-        if ((_rightGlove.transform.forward - _cameraTransform.up).magnitude > 0.4f) return false;
-        if ((_leftGlove.transform.up + _cameraTransform.right).magnitude > 0.4f) return false;
-        if ((_rightGlove.transform.up - _cameraTransform.right).magnitude > 0.4f) return false;
+        if ((_leftGlove.transform.forward - _cameraTransform.up).magnitude > 0.5f) return false;
+        if ((_rightGlove.transform.forward - _cameraTransform.up).magnitude > 0.5f) return false;
+        if ((_leftGlove.transform.up + _cameraTransform.right).magnitude > 0.5f) return false;
+        if ((_rightGlove.transform.up - _cameraTransform.right).magnitude > 0.5f) return false;
 
         // Check if gloves are close together
-        if ((_leftGlove.transform.position - _rightGlove.transform.position).magnitude > 0.125f) return false;
+        if ((_leftGlove.transform.position - _rightGlove.transform.position).magnitude > 0.25f) return false;
 
         return true;
     }

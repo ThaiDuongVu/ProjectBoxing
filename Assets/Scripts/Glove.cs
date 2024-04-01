@@ -191,8 +191,8 @@ public class Glove : MonoBehaviour
                 // Check speed of both gloves
                 if (!MinSpeedReached || !otherGlove.MinSpeedReached) return;
                 // Prevent accidental triggers
-                if (controllerType == ControllerType.Left && CurrentDirection.x < 0.9f && transform.forward.x < 0.9f) return;
-                if (controllerType == ControllerType.Right && CurrentDirection.x > -0.9f && transform.forward.x > -0.9f) return;
+                if (controllerType == ControllerType.Left && (CurrentDirection.x < 0.75f || transform.forward.x < 0.75f)) return;
+                if (controllerType == ControllerType.Right && (CurrentDirection.x > -0.75f || transform.forward.x > -0.75f)) return;
 
                 Instantiate(explosionPrefab, contactPoint, Quaternion.identity);
                 Vibrate(CurrentSpeed, CurrentSpeed);

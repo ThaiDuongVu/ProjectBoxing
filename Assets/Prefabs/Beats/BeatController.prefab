@@ -183,5 +183,9 @@ MonoBehaviour:
   - {fileID: 5316456525455761381, guid: 9497e8449cbf20f4db85d1c2c18ba847, type: 3}
   - {fileID: 5316456525455761381, guid: cac458e4e641c984e87d3be49117145c, type: 3}
   - {fileID: 5316456525455761381, guid: 890464bd17a418847964f271edc8dab3, type: 3}
+  - {fileID: 5316456525455761381, guid: 7f658296c398da34cb2ccbf09f829f81, type: 3}
   beats: []
   tv: {fileID: 0}
+  tutorialDisplay: {fileID: 0}
+  gameplayObjects: {fileID: 0}
+  pausedObjects: {fileID: 0}

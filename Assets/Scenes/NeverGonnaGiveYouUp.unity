@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &270767072 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3483085840240940407, guid: 310e15677210dc3409b34fb6265f972c, type: 3}
-  m_PrefabInstance: {fileID: 1308549828615051690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &416005875 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 237139460861431782, guid: e17a8d56d452b2f41bece4a7876c4669, type: 3}
@@ -903,10 +898,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldController
       objectReference: {fileID: 0}
-    - target: {fileID: 6828476277639570858, guid: 539d6178b2288ff4dbfb07378cae815e, type: 3}
-      propertyPath: xrOrigin
-      value: 
-      objectReference: {fileID: 270767072}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1294,5 +1285,5 @@ SceneRoots:
   - {fileID: 8438282369370162273}
   - {fileID: 4574146388865164340}
   - {fileID: 445787102}
-  - {fileID: 2078833556}
   - {fileID: 4352096916414211657}
+  - {fileID: 2078833556}
