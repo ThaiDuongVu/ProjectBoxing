@@ -33,7 +33,8 @@ public class ShieldController : MonoBehaviour
 
             var glovesAvgPosition = (_leftGlove.transform.position + _rightGlove.transform.position) / 2;
             shield.transform.position = glovesAvgPosition + _cameraTransform.forward * 0.25f;
-            transform.forward = _cameraTransform.forward;
+            // transform.forward = _cameraTransform.forward;
+            transform.forward = ((-_leftGlove.transform.right + _rightGlove.transform.right) / 2f).normalized;
         }
         else
         {
@@ -52,10 +53,10 @@ public class ShieldController : MonoBehaviour
         if (!_leftGlove.IsClosed || !_rightGlove.IsClosed) return false;
 
         // Check gloves orientation
-        if ((_leftGlove.transform.forward - _cameraTransform.up).magnitude > 0.5f) return false;
-        if ((_rightGlove.transform.forward - _cameraTransform.up).magnitude > 0.5f) return false;
-        if ((_leftGlove.transform.up + _cameraTransform.right).magnitude > 0.5f) return false;
-        if ((_rightGlove.transform.up - _cameraTransform.right).magnitude > 0.5f) return false;
+        if ((_leftGlove.transform.forward - Vector3.up).magnitude > 0.5f) return false;
+        if ((_rightGlove.transform.forward - Vector3.up).magnitude > 0.5f) return false;
+        if ((_leftGlove.transform.up + Vector3.right).magnitude > 0.5f) return false;
+        if ((_rightGlove.transform.up - Vector3.right).magnitude > 0.5f) return false;
 
         // Check if gloves are close together
         if ((_leftGlove.transform.position - _rightGlove.transform.position).magnitude > 0.25f) return false;

@@ -83,7 +83,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalPosition.x
@@ -99,19 +99,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6532815
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.27059805
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6532815
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.27059805
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -123,7 +123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007894474921066295, guid: bd1e3382a019e6945a1c962a30686814, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4180890760524807006, guid: f6c7c96bccc9d3e47ba15dabb01b0005, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4180890760524807006, guid: f6c7c96bccc9d3e47ba15dabb01b0005, type: 3}
       propertyPath: m_LocalRotation.w
@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5597471335195619614, guid: f6c7c96bccc9d3e47ba15dabb01b0005, type: 3}
       propertyPath: m_Name
-      value: TargetRed
+      value: TargetPurple
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
